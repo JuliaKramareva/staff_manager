@@ -23,7 +23,8 @@ class Command(BaseCommand):
             user = User.objects.create(
                 id = id.random.choice(1, 10000),
                 password = password.random.choice(string.ascii_lowercase + string.digits),
-                last_login = last_login.datetime.date(randint(2018,2018), randint(1,12),randint(1,28)),
+                last_login = last_login.datetime.date(random.randint(2018,2018), random.randint(1,12), \
+                                                      random.randint(1,28)),
                 is_superuser = False,
                 username = username.(''.join(random.choice(string.ascii_lowercase) for x in range(random.choice(1, 10))) + \
                                      ''.join(random.choice(string.digits) for z in range(random.choice(1, 100)))),
