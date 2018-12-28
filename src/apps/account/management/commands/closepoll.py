@@ -13,16 +13,16 @@ class Command(BaseCommand):
 
     domains = ["hotmail.com", "gmail.com", "mail.com", "yahoo.com", "icloud.com"]
     letters = string.ascii_lowercase[:12]
-    username_choice = (''.join([random.choice(string.ascii_lowercase) for x in range(random.choice(1, 10)]) + \
-                                     ''.join([random.choice(string.digits) for z in range(random.choice(1, 10)]))
-    permissions = (("Can view user", "Can view content type", "Can view group", "Can view session"), )
+    username_choice = ((''.join(random.choice.zip(string.ascii_lowercase, srting.digits) \
+                                for x in range(random.choice(1, 10)))
+    permissions_staff = ("Can view user", "Can view content type", "Can view group", "Can view session"),)
     GROUPS_STAFF = ("Administration", "Analytics", "Statisticians", "Developers", "Sales")
 
 
 
     def handle(self, *args, **options):
         User.objects.exclude(is_superuser=True).delete()
-        for i in range(10_000):
+        for i in range(10000):
             user = User.objects.create(
                 password = password.random.choice(string.ascii_lowercase + string.digits),
                 last_login = last_login.datetime.date(random.randint(2018,2018), random.randint(1,12), \
@@ -38,5 +38,6 @@ class Command(BaseCommand):
                                                         random.randint(1,28)),
                 age = age.random.choice(21, 65),
                 groups = groups.random.choice(GROUPS_STAFF),
-                user_permissions = user_permissions.permissions
+                user_permissions = user_permissions.permissions_staff
             )
+
