@@ -15,8 +15,8 @@ class Command(BaseCommand):
     letters = string.ascii_lowercase[:12]
     username_choice = ((''.join(random.choice.zip(string.ascii_lowercase, srting.digits) \
                                 for x in range(random.choice(1, 10)))
-    permissions_staff = ("Can view user", "Can view content type", "Can view group", "Can view session"),)
-    GROUPS_STAFF = ("Administration", "Analytics", "Statisticians", "Developers", "Sales")
+    permissions_staff = (("Can view user", "Can view content type", "Can view group", "Can view session"), )
+    GROUPS_STAFF = ["Administration", "Analytics", "Statisticians", "Developers", "Sales"]
 
 
 
