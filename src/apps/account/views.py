@@ -10,6 +10,7 @@ def index(request):
 
 def user_profile(request, id):
     query = request.GET.get()
+    return query
 
 
 
