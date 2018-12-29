@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     email = models.EmailField(blank=True, max_length=254)
 
     def __str__(self):
-        return 'Profile for user {}'.format(self.user.username)
+        return 'Profile of user {}'.format(self.user.username)
 
 def create_profile(self, *args, **kwargs):
     u = super(User, self).save(*args, **kwargs)

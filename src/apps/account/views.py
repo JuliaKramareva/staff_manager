@@ -8,9 +8,9 @@ from .models import UserProfile
 def index(request):
     return HttpResponse('Index')
 
-def user_profile(request, id):
-    query = request.GET.get()
-    return query
+def user_profile(request):
+    profile = request.user.get_profile()
+    return profile
 
 
 
