@@ -40,4 +40,3 @@ class Command(BaseCommand):
                 groups = groups.random.choice(GROUPS_STAFF),
                 user_permissions = user_permissions.permissions_staff
             )
-

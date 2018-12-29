@@ -1,5 +1,6 @@
 from django.contrib import admin
-from apps.account.models import User
+from django.contrib.auth.admin import UserAdmin
+from apps.account.models import User, UserProfile
 
 
 
@@ -7,3 +8,9 @@ from apps.account.models import User
 class UserAdmin(admin.ModelAdmin):
 
     readonly_fields = ["username", "last_login", "date_joined", "password"]
+
+class Profile(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
