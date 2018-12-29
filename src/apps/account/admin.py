@@ -9,7 +9,7 @@ class UserAdmin(admin.ModelAdmin):
 
     readonly_fields = ["username", "last_login", "date_joined", "password"]
 
-class Profile(admin.StackedInline):
+class Profile(admin.ModelAdmin):
     model = UserProfile
     can_delete = False
     verbose_name_plural = 'Profile'

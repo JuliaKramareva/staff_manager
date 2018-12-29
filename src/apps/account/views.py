@@ -9,7 +9,7 @@ def index(request):
     return HttpResponse('Index')
 
 def user_profile(request, id):
-    query = request.GET.get('id')
+    query = request.GET.get()
 
 
 
