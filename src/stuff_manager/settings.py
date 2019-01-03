@@ -128,4 +128,4 @@ STATIC_URL = '/static/'
 
 #custom settings
 AUTH_USER_MODEL = 'account.User'
-AUTH_PROFILE_MODULE = 'account.UserProfile'
+AUTH_PROFILE_MODULE = 'account.User'

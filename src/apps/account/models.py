@@ -13,7 +13,8 @@ class User(AbstractUser):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.models.CharField('username', max_length=150, unique=True)
+
+    username = models.CharField('username', max_length=150, unique=True)
     email = models.EmailField('email', unique=True)
     first_name = models.CharField('first name', max_length=30, blank=True)
     last_name = models.CharField('last name', max_length=30, blank=True)
@@ -26,18 +27,21 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['username', 'email', 'first name', 'last name', 'date joined', 'telephone']
 
 
     def __unicode__(self):
         return self.user
 
     class Meta:
-        verbose_name = 'telephone'
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+        abstract = False
 
 
     def get_full_name(self):
-        full_name = '%s %s' % (self.first_name, self.last_name)
+        full_name = '{}{}'.format(self.first_name, self.last_name)
         return full_name.strip()
 
 

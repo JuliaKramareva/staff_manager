@@ -14,7 +14,7 @@ class UserAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'username', 'email', 'age']
     list_filter = ['date_joined', 'last_login', 'age']
-    search_fields = ['email', 'first_name']
+    search_fields = ['email', 'first_name', 'telephone']
 
     def has_delete_permission(self, request, obj=None):
         if obj is not None:
