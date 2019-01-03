@@ -1,6 +1,8 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from apps.account.models import User, UserProfile
+from apps.account.models import User
+from django import forms
 
 
 
@@ -9,8 +11,24 @@ class UserAdmin(admin.ModelAdmin):
 
     readonly_fields = ["username", "last_login", "date_joined", "password"]
 
-class Profile(admin.ModelAdmin):
-    model = UserProfile
-    can_delete = False
-    verbose_name_plural = 'Profile'
-    fk_name = 'user'
+
+    list_display = ['id', 'username', 'email', 'age']
+    list_filter = ['date_joined', 'last_login', 'age']
+    search_fields = ['email', 'first_name']
+
+    def has_delete_permission(self, request, obj=None):
+        if obj is not None:
+            return not obj.is_superuser
+        return False
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if not request.user.is_superuser:
+            return qs.exclude(is_superuser=True)
+        return qs
+
+
+
+
+
+
