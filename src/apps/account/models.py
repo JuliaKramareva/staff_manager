@@ -10,34 +10,24 @@ from django.contrib.auth.models import User
 
 class User(AbstractUser):
     age = models.PositiveSmallIntegerField(null=True, blank=False)  #TODO validate age >=18.
-
-
-class User(AbstractBaseUser, PermissionsMixin):
-
-    username = models.CharField('username', max_length=150, unique=True)
-    email = models.EmailField('email', unique=True)
-    first_name = models.CharField('first name', max_length=30, blank=True)
-    last_name = models.CharField('last name', max_length=30, blank=True)
-    date_joined = models.DateTimeField('date joined', auto_now_add=True)
+    # username = models.CharField('username', max_length=150, unique=True)
+    # email = models.EmailField('email', unique=True)
+    # first_name = models.CharField('first name', max_length=30, blank=True)
+    # last_name = models.CharField('last name', max_length=30, blank=True)
+    # date_joined = models.DateTimeField('date joined', auto_now_add=True)
     telephone = models.CharField('telephone', max_length=12, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
-    objects = UserManager()
-
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['username', 'email', 'first name', 'last name', 'date joined', 'telephone']
+class Meta:
+    verbose_name = 'User'
+    verbose_name_plural = 'Users'
 
 
     def __unicode__(self):
         return self.user
-
-    class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
-        abstract = False
 
 
     def get_full_name(self):
