@@ -31,6 +31,7 @@ class Command(BaseCommand):
                 username=username,
                 email = username + '@example.com',
                 age = random.randint(12, 100),
+                telephone = '111-1111-111'
 
 
         )
