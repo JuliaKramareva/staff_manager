@@ -1,9 +1,19 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from apps.account.models import User
+from apps.account.models import User, City, Contact_us
 from django import forms
 
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+
+    pass
+
+# @admin.register(Contact_us)
+# class Contactus.Admin(admin.ModelAdmin):
+#
+#     pass
 
 
 @admin.register(User)
@@ -14,7 +24,7 @@ class UserAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'username', 'email', 'age']
     list_filter = ['date_joined', 'last_login', 'age']
-    search_fields = ['email', 'first_name', 'telephone']
+    search_fields = ['email', 'first_name', 'phone']
 
     def has_delete_permission(self, request, obj=None):
         if obj is not None:

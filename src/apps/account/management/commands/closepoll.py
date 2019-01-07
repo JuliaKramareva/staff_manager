@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from apps.account.models import User
+from apps.account.models import User, City
 from uuid import uuid4
 import random
 import string
@@ -24,6 +24,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # print('1'*100)
         result = []
+
+        ####
+        cities = []
+        for name in ('Kiev', 'Odessa', 'Lviv', 'Dnipro'):
+            city, _ = City.objects.get_or_create(name=name)
+            cities.append(city)
+        ##############
+
         for i in range(10000):
             username = str(uuid4())
             user = User(
@@ -31,7 +39,10 @@ class Command(BaseCommand):
                 username=username,
                 email = username + '@example.com',
                 age = random.randint(12, 100),
-                telephone = '111-1111-111'
+                phone = '111-1111-111',
+                salary=random.randint(100, 1000),
+                city=random.choice(cities),
+
 
 
         )

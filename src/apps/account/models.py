@@ -9,26 +9,34 @@ from django.contrib.auth.models import User
 
 
 class User(AbstractUser):
-    age = models.PositiveSmallIntegerField(null=True, blank=False)  #TODO validate age >=18.
-
-    telephone = models.CharField('telephone', max_length=12, blank=True)
-
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
-
-# class Meta:
-#     verbose_name = 'User'
-#     verbose_name_plural = 'Users'
-#
-#
-#     def __unicode__(self):
-#         return self.user
+    age = models.PositiveSmallIntegerField(null=True, blank=True)  # TODO validate age >= 18
+    phone = models.CharField(max_length=16, blank=True, null=True)
+    address = models.CharField(max_length=256, blank=True, null=True)
+    salary = models.DecimalField(decimal_places=2, max_digits=8)
+    city = models.ForeignKey('account.City', on_delete=models.SET_NULL, blank=True, null=True, related_name='users')
 
 
-    def get_full_name(self):
-        full_name = '{}{}'.format(self.first_name, self.last_name)
-        return full_name.strip()
+class City(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Cities'
+
+
+    # def get_full_name(self):
+    #     full_name = '{}{}'.format(self.first_name, self.last_name)
+    #     return full_name.strip()
+
+class Contact_us(models.Model):
+    email_from = models.CharField(max_length=56)
+    title = models.CharField(max_length=256)
+    text = models.TextField(max_length=500)
+
+
+
 
 
 
