@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>You have to agree to the TOS</h1>
+<p>sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer \
+    malesuada nunc vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas dui id \
+    ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis \
+    auctor elit sed vulputate mi sit amet mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et ligula \
+    ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet \
+    porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit</p>
+<form action="{% url 'account:tos' %}" method="post">
+    {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="I agree to the TOS" />
+    </form>
+</body>
+</html>

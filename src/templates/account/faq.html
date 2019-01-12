@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+</head>
+<body>
+<h2>Questions</h2>
+<form action="{% url 'account:faq' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h2>diam ut venenatis tellus in?</h2>
+    <p>lectus sit amet est placerat in egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam ut porttitor \
+        leo a diam sollicitudin tempor id eu nisl nunc mi ipsum faucibus</p>
+    <h2>diam ut venenatis tellus in?</h2>
+    <p>lectus sit amet est placerat in egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam ut porttitor \
+        leo a diam sollicitudin tempor id eu nisl nunc mi ipsum faucibus</p>
+</form>
+</body>
+</html>

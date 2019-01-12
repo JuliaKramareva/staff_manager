@@ -36,16 +36,17 @@ class Contact_us(models.Model):
     text = models.TextField(max_length=500)
 
 
+class Faq(models.Model):
+    pass
 
 
+class Tos(models.Model):
+    i_agree = models.BooleanField()
 
-
-
-
-
-
-
-
-
-
-
+class Request_Day_Off(models.Model):
+    pass
+    # from
+    # to
+    # user
+    # type=choice
+    # confirmed

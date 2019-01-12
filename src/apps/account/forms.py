@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from apps.account.models import User, Contact_us
+from apps.account.models import User, Contact_us, Tos, Faq
 
 
 class ProfileForm(ModelForm):
@@ -12,6 +12,9 @@ class ProfileForm(ModelForm):
             'first_name', 'last_name',
             'city'
         ]
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
 
 class Contact_us(ModelForm):
 
@@ -24,3 +27,15 @@ class Contact_us(ModelForm):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+
+class Faq_form(ModelForm):
+    pass
+
+
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+
+class Tos_Form(ModelForm):
+    fields = ['i_agree']
