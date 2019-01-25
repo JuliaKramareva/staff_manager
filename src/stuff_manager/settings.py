@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    #3d party apps
+    'debug_toolbar',
+    
+     #custom
     'apps.account',
+
 ]
 
 MIDDLEWARE = [
@@ -49,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'stuff_manager.urls'
@@ -129,3 +134,36 @@ STATIC_URL = '/static/'
 #custom settings
 AUTH_USER_MODEL = 'account.User'
 AUTH_PROFILE_MODULE = 'account.User'
+LOGIN_REDIRECT_URL = 'account:profile'  # app_name + url_name
+LOGOUT_REDIRECT_URL = 'account:index'  # app_name + url_name
+
+INTERNAL_IPS = '127.0.0.1'
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Asia/Makassar'
+from celery.schedules import crontab
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'apps.account.tasks.task_number_one',
+        'schedule': crontab(minute='*/2'),
+        'args': ()
+    },
+
+    'increment_dayoffs': {
+        'task': 'apps.account.tasks.increment_dayoffs',
+        'schedule': crontab(month_of_year='*/1'),
+        'args': (),
+    }
+}
+
+if DEBUG:
+    CELERY_BEAT_SCHEDULE['increment_dayoffs']['schedule'] = crontab(minute='*/10')
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+from pdb import set_trace
+__builtins__['st'] = set_trace

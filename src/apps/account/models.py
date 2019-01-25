@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.base_user import (AbstractBaseUser, BaseUserManager)
+
 from django.contrib.auth.models import PermissionsMixin
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from apps import model_choices as mch
 
 
 
@@ -14,6 +15,47 @@ class User(AbstractUser):
     address = models.CharField(max_length=256, blank=True, null=True)
     salary = models.DecimalField(decimal_places=2, max_digits=8)
     city = models.ForeignKey('account.City', on_delete=models.SET_NULL, blank=True, null=True, related_name='users')
+
+    vacation_days = models.PositiveSmallIntegerField(null=False,
+                                                     blank=False,
+                                                     default=0)
+    sickness_days = models.PositiveSmallIntegerField(null=False,
+                                                     blank=False,
+                                                     default=0)
+
+    @property
+    def is_hr(self):
+        return self.groups.filter(name='HR').exists()
+
+    def save(self, *args, **kwargs):
+        self.username = self.email
+        super().save(*args, **kwargs)
+
+
+class RequestDayOff(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dayoffs')
+    created = models.DateTimeField(auto_now_add=True)  # auto_now_add
+    date_from = models.DateTimeField(null=False, blank=False)
+    date_to = models.DateTimeField(null=False, blank=False)
+    type = models.PositiveSmallIntegerField(
+        null=False, blank=False,
+        choices=mch.REQUEST_TYPES,
+        default=mch.REQUEST_SICKNESS,
+    )
+    reason = models.CharField(max_length=256, blank=True, null=True, default=None)  # reason required when status = REJECTED
+    status = models.PositiveSmallIntegerField(
+        null=False, blank=False,
+        choices=mch.STATUSES,
+        default=mch.STATUS_PENDING,
+    )
+
+    # TODO
+    # override save method, if date_from > date_to -> raise IntegrityError('error message') (from db)
+    # override __str__ (DO NOT USE self.user)
+    # def __str__(self):
+    #     return self.user.email  # extra DB call NEVER DO THIS!!!
+
+
 
 
 class City(models.Model):
