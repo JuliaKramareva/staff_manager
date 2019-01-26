@@ -1,10 +1,13 @@
 # from django.shortcuts import render
 from django.http  import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
+from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from apps.account.models import User, Faq, Tos
+from django.views.decorators.cache import cache_page
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from apps.account.forms import ProfileForm, Contact_us, Faq_form, Tos_Form, RequestDayOffForm
 
 
@@ -107,3 +110,17 @@ def Tos_View(request):
 
 def Request_Day_Off_View(request):
     pass
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+@cache_page(CACHE_TTL)
+def recipes_view(request):
+    return render(request, 'account/faq.html', {
+        'faq': Faq()
+    })
+
+@cache_page(CACHE_TTL)
+def recipes_view(request):
+    return render(request, 'account/tos.html', {
+        'tos': Tos()
+    })
